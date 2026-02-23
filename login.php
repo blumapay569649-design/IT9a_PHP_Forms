@@ -1,14 +1,12 @@
 <?php
 session_start();
 
-
 $cookie_user = isset($_COOKIE['remembered_user']) ? $_COOKIE['remembered_user'] : "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $_SESSION['user'] = $username;
 
-    
     if (isset($_POST['remember'])) {
         setcookie("remembered_user", $username, time() + (86400 * 7), "/");
     } else {
