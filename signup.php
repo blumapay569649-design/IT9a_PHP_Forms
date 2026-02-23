@@ -7,11 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = trim($_POST['username']);
     $email = trim($_POST['email']);
     $pass = $_POST['password'];
+    $confirm_pass = $_POST['confirm_password'];
 
-    
-    if (empty($user) || empty($email) || empty($pass)) $errors[] = "All fields are required.";
+    if (empty($user) || empty($email) || empty($pass) || empty($confirm_pass)) $errors[] = "All fields are required.";
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Please enter a valid email.";
     if (strlen($pass) < 8) $errors[] = "Password must be at least 8 characters.";
+    if ($pass !== $confirm_pass) $errors[] = "Passwords do not match.";
 
     if (empty($errors)) {
         $_SESSION['temp_user'] = $user;
@@ -42,10 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" name="confirm_password" class="form-control" required>
+            </div>
             <button type="submit" class="btn btn-primary w-100">Sign Up</button>
             <p class="text-center mt-3">Already have an account? <a href="login.php">Login</a></p>
         </form>
     </div>
 </div>
-
 </body></html>
