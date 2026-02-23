@@ -8,13 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $pass = $_POST['password'];
 
-    // PHP Validations
+    
     if (empty($user) || empty($email) || empty($pass)) $errors[] = "All fields are required.";
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Please enter a valid email.";
     if (strlen($pass) < 8) $errors[] = "Password must be at least 8 characters.";
 
     if (empty($errors)) {
-        $_SESSION['temp_user'] = $user; // Store to simulate registration
+        $_SESSION['temp_user'] = $user;
         header("Location: login.php?msg=registered");
         exit();
     }
@@ -47,4 +47,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </div>
+
 </body></html>
