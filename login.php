@@ -1,18 +1,17 @@
 <?php
 session_start();
 
-// 1. Handle Cookie logic for 'Remember Me'
+
 $cookie_user = isset($_COOKIE['remembered_user']) ? $_COOKIE['remembered_user'] : "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $_SESSION['user'] = $username;
 
-    // Set Cookie for 7 days if checked
+    
     if (isset($_POST['remember'])) {
         setcookie("remembered_user", $username, time() + (86400 * 7), "/");
     } else {
-        // Clear cookie if unchecked
         setcookie("remembered_user", "", time() - 3600, "/");
     }
 
